@@ -1,6 +1,6 @@
 // Winter'24
 // Instructor: Diba Mirza
-// Student name: 
+// Student name: Prabhav Doma 
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -26,15 +26,14 @@ int main(int argc, char** argv){
         cerr << "Usage: " << argv[ 0 ] << " moviesFilename prefixFilename " << endl;
         exit(1);
     }
-
     ifstream movieFile (argv[1]);
- 
+
     if (movieFile.fail()){
         cerr << "Could not open file " << argv[1];
         exit(1);
     }
   
-    // Create an object of a STL data-structure to store all the movies
+    vector <pair<string, double>> movies; 
 
     string line, movieName;
     double movieRating;
@@ -44,13 +43,22 @@ int main(int argc, char** argv){
             // to construct your Movie objects
             // cout << movieName << " has rating " << movieRating << endl;
             // insert elements into your data structure
+
+	    movies.push_back({movieName, movieRating});
+
     }
 
     movieFile.close();
-
+	
+    sort(movies.begin(), movies.end());
     if (argc == 2){
             //print all the movies in ascending alphabetical order of movie names
+	    
+	    for (size_t i = 0; i < movies.size(); ++i) {
+		    cout << movies[i].first << ", " << movies[i].second << endl;
+            }
             return 0;
+
     }
 
     ifstream prefixFile (argv[2]);
@@ -77,6 +85,7 @@ int main(int argc, char** argv){
     cout << "Best movie with prefix " << "<replace with prefix>" << " is: " << "replace with movie name" << " with rating " << std::fixed << std::setprecision(1) << "replace with movie rating" << endl;
 
     return 0;
+
 }
 
 /* Add your run time analysis for part 3 of the assignment here as commented block*/

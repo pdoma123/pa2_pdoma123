@@ -105,15 +105,15 @@ int main(int argc, char** argv){
                 while (left <= right) {
                     int mid = left + (right - left) / 2;
                     if (movies[mid].first >= prefix) {
-                        start_pos = mid;
+                        start = mid;
                         right = mid - 1;
                     } else {
                         left = mid + 1;
                     }
                 }
 
-                if (start_pos != -1) {
-                    for (int i = start_pos; i < n; ++i) {
+                if (start != -1) {
+                    for (int i = start; i < n; ++i) {
                         if (hasPrefix(movies[i].first, prefix)) {
                             match_movies.push_back(movies[i]);
                         } else {

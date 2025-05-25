@@ -165,20 +165,23 @@ int main(int argc, char** argv){
 /*  3a: Analyze time complexity (Worst Case)
  *
  * Sorting movies by name
- * O (nlog n)
+ * O(nlog n)
  *
  * for m prefizes:
- * - linear search O(n)
- * - sort movies with matching prefixes (k movies)
- *   - O(klog k)
+ * - binary search O(log n)
+ * - get n matching movies O(n)
+ * - sort movies with matching prefixes (k movies) = O(klog k)
+ * so prefix search comes to be O(nlog n + mlog n +  mklog k)
+ * in the worst case where every movie matches with every prefix too, then 
+ * k becomes equal to n.
  *
- * = O(nlog n + mn + mklog k)
+ * worst case time complexity = O(nlog n + mlog n + mnlog n) => O(mnlog n)
  *
  * runtime:
- * 20 random:
- * 100 random:
- * 1000 random:
- * 76920 random:
+ * 20 random: 65.59 ms
+ * 100 random:   66.44 ms
+ * 1000 random:  54.16 ms
+ * 76920 random: 360.2886 ms
  *
  * 3b:
  * n movies in a vector, m prefixes in a vector, k matching movies per prefix
@@ -187,9 +190,14 @@ int main(int argc, char** argv){
  *
  * 3c
  * 1. I tried to design my algorithm for a lower space complexity.
- *    However I was not able to achieve a lower time complexity. I believe that a trie approach would be fastest
- *    as that seems to be the optimal data structure for strings and prefixes as per my research. However, that would come
- *    at the cost of significantly more memory used.
+ *    I think I was able to design a program with fairly low time complexity as well. 
+ *     However, that was not the primary goal. I originally started with using a vector
+ *     of pairs to essentially have a prefix key for movies. By having contiguous memory
+ *     memory usage is kept low as everything is stored without the use of pointers.
+ *     At first, due to the linear search my algorithm was quite slow, but with the 
+ *     implementation of binary search through the sorted vector, I was able to essentially
+ *     take on the time complexity of something similar to a tree structure while 
+ *     maintaining the low space complexity of a vector. 
  *
  *
  */

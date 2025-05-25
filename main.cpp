@@ -156,7 +156,7 @@ int main(int argc, char** argv){
         auto end = chrono::high_resolution_clock::now();
         double time_ms = chrono::duration_cast<chrono::microseconds>(end - start).count() / 1000.0;
 
-        cerr << "Prefix search took " << fixed << setprecision(3) << time_ms << " ms" << endl;
+        //cerr << "Prefix search took " << fixed << setprecision(3) << time_ms << " ms" << endl;
 
     //print for best movies only
         for (const auto& entry : bestMovies) {

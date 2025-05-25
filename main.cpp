@@ -54,7 +54,6 @@ int main(int argc, char** argv){
 
         sort(movies.begin(), movies.end());
         if (argc == 2){
-                //print all the movies in ascending alphabetical order of movie names
 
                 for (size_t i = 0; i < movies.size(); ++i) {
                         cout << movies[i].first << ", " << movies[i].second << endl;
@@ -99,7 +98,7 @@ int main(int argc, char** argv){
                 int n = movies.size();
                 int left = 0, right = n;
 
-                // Find the first movie that could match the prefix (lower bound)
+                // Find the first movie that could match the prefix 
                 while (left < right) {
                     int mid = left + (right - left) / 2;
                     if (movies[mid].first < prefix) {
@@ -109,9 +108,7 @@ int main(int argc, char** argv){
                     }
                 }
                 int lower_idx = left;
-
-                // Find the first movie that definitely doesn't match the prefix (upper bound)
-                // We create an upper bound by incrementing the last character of prefix
+            
                 string upper_prefix = prefix;
                 if (!upper_prefix.empty()) {
                     upper_prefix.back()++;
@@ -134,7 +131,7 @@ int main(int argc, char** argv){
                     if (hasPrefix(movies[i].first, prefix)) {
                         match_movies.push_back(movies[i]);
                     } else {
-                        break; // Since movies are sorted, we can break early
+                        break; 
                     }
                 }
 
@@ -169,10 +166,6 @@ int main(int argc, char** argv){
 
 
 
-
-
-
-
     return 0;
 
 }
@@ -192,10 +185,10 @@ int main(int argc, char** argv){
  * = O(nlog n + mn + mklog k)
  *
  * runtime:
- * 20 random:
- * 100 random:
- * 1000 random:
- * 76920 random:
+ * 20 random: 65.06
+ * 100 random: 62.05
+ * 1000 random: 79.99 ms
+ * 76920 random: 455.43 ms
  *
  * 3b:
  * n movies in a vector, m prefixes in a vector, k matching movies per prefix

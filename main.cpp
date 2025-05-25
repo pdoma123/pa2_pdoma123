@@ -54,6 +54,7 @@ int main(int argc, char** argv){
 
         sort(movies.begin(), movies.end());
         if (argc == 2){
+                //print all the movies in ascending alphabetical order of movie names
 
                 for (size_t i = 0; i < movies.size(); ++i) {
                         cout << movies[i].first << ", " << movies[i].second << endl;
@@ -96,45 +97,30 @@ int main(int argc, char** argv){
                 vector<pair<string, double>> match_movies;
 
                 int n = movies.size();
-                int left = 0, right = n;
+                int left = 0;
+                int right = n;
+                int start = -1;
 
-                // Find the first movie that could match the prefix 
-                while (left < right) {
+
+                while (left <= right) {
                     int mid = left + (right - left) / 2;
-                    if (movies[mid].first < prefix) {
+                    if (movies[mid].first >= prefix) {
+                        start_pos = mid;
+                        right = mid - 1;
+                    } else {
                         left = mid + 1;
-                    } else {
-                        right = mid;
-                    }
-                }
-                int lower_idx = left;
-            
-                string upper_prefix = prefix;
-                if (!upper_prefix.empty()) {
-                    upper_prefix.back()++;
-                }
-
-                left = 0;
-                right = n;
-                while (left < right) {
-                    int mid = left + (right - left) / 2;
-                    if (movies[mid].first < upper_prefix) {
-                        left = mid + 1;
-                    } else {
-                        right = mid;
-                    }
-                }
-                int upper_idx = left;
-
-
-                 for (int i = lower_idx; i < upper_idx; ++i) {
-                    if (hasPrefix(movies[i].first, prefix)) {
-                        match_movies.push_back(movies[i]);
-                    } else {
-                        break; 
                     }
                 }
 
+                if (start_pos != -1) {
+                    for (int i = start_pos; i < n; ++i) {
+                        if (hasPrefix(movies[i].first, prefix)) {
+                            match_movies.push_back(movies[i]);
+                        } else {
+                            break;
+                        }
+                    }
+                }
 
                 if (match_movies.empty()) {
                         cout << "No movies found with prefix " << prefix << endl;
@@ -156,12 +142,16 @@ int main(int argc, char** argv){
         auto end = chrono::high_resolution_clock::now();
         double time_ms = chrono::duration_cast<chrono::microseconds>(end - start).count() / 1000.0;
 
-        //cerr << "Prefix search took " << fixed << setprecision(3) << time_ms << " ms" << endl;
+        cerr << "Prefix search took " << fixed << setprecision(3) << time_ms << " ms" << endl;
 
     //print for best movies only
         for (const auto& entry : bestMovies) {
                 cout << "Best movie with prefix " << entry.first << " is: " << entry.second.first << " with rating " << fixed << setprecision(1) << entry.second.second << endl;
         }
+
+
+
+
 
 
 
@@ -185,10 +175,10 @@ int main(int argc, char** argv){
  * = O(nlog n + mn + mklog k)
  *
  * runtime:
- * 20 random: 65.06
- * 100 random: 62.05
- * 1000 random: 79.99 ms
- * 76920 random: 455.43 ms
+ * 20 random:
+ * 100 random:
+ * 1000 random:
+ * 76920 random:
  *
  * 3b:
  * n movies in a vector, m prefixes in a vector, k matching movies per prefix
@@ -227,4 +217,3 @@ bool compareMovies(const pair<string, double>& a, const pair<string, double>& b)
 bool hasPrefix(const string& str, const string& prefix) {
     return str.compare(0, prefix.size(), prefix) == 0;
 }
-~                                                                                                                                                                                                         

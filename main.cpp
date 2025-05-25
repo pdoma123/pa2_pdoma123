@@ -115,7 +115,7 @@ int main(int argc, char** argv){
                         //best movies per prefix
                         bestMovies.push_back({prefix, {match_movies[0].first, match_movies[0].second}});
                 }
-        //      cout << endl;
+                cout << endl;
         }
 
     //print for best movies only

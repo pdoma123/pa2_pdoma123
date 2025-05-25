@@ -1,6 +1,6 @@
 // Winter'24
 // Instructor: Diba Mirza
-// Student name: Prabhav Doma 
+// Student name: Prabhav Doma
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -33,8 +33,8 @@ int main(int argc, char** argv){
         cerr << "Could not open file " << argv[1];
         exit(1);
     }
-  
-    vector <pair<string, double>> movies; 
+
+    vector <pair<string, double>> movies;
 
     string line, movieName;
     double movieRating;
@@ -45,18 +45,18 @@ int main(int argc, char** argv){
             // cout << movieName << " has rating " << movieRating << endl;
             // insert elements into your data structure
 
-	    movies.push_back({movieName, movieRating});
+            movies.push_back({movieName, movieRating});
 
     }
 
     movieFile.close();
-	
+
     sort(movies.begin(), movies.end());
     if (argc == 2){
             //print all the movies in ascending alphabetical order of movie names
-	    
-	    for (size_t i = 0; i < movies.size(); ++i) {
-		    cout << movies[i].first << ", " << movies[i].second << endl;
+
+            for (size_t i = 0; i < movies.size(); ++i) {
+                    cout << movies[i].first << ", " << movies[i].second << endl;
             }
             return 0;
 
@@ -75,8 +75,8 @@ int main(int argc, char** argv){
             prefixes.push_back(line);
         }
     }
-    
-    prefixFile.close();    
+
+    prefixFile.close();
 
     //  For each prefix,
     //  Find all movies that have that prefix and store them in an appropriate data structure
@@ -88,40 +88,40 @@ int main(int argc, char** argv){
     //cout << "Best movie with prefix " << "<replace with prefix>" << " is: " << "replace with movie name" << " with rating " << std::fixed << std::setprecision(1) << "replace with movie rating" << endl;
 
 
- 	vector<pair<string, pair<string, double>>> bestMovies; // prefix, (movie_name, rating)
+        vector<pair<string, pair<string, double>>> bestMovies; // prefix, (movie_name, rating)
 
-    	for (const string& prefix : prefixes) {
-        	vector<pair<string, double>> match_movies;
+        for (const string& prefix : prefixes) {
+                vector<pair<string, double>> match_movies;
 
-        	for (const auto& movie : movies) {
-            		if (movie.first.compare(0, prefix.size(), prefix) == 0) {
-                		match_movies.push_back(movie);
-            		}
-            		else if (movie.first > prefix) {
-                		break;
-            		}
-        	}	
+                for (const auto& movie : movies) {
+                        if (movie.first.compare(0, prefix.size(), prefix) == 0) {
+                                match_movies.push_back(movie);
+                        }
+                        else if (movie.first > prefix) {
+                                break;
+                        }
+                }
 
-        	if (match_movies.empty()) {
-            		cout << "No movies found with prefix " << prefix << endl;
-       	 	} 
-		else {
-			sort(match_movies.begin(), match_movies.end(), compareMovies);
+                if (match_movies.empty()) {
+                        cout << "No movies found with prefix " << prefix << endl;
+                }
+                else {
+                        sort(match_movies.begin(), match_movies.end(), compareMovies);
 
-            		for (const auto& movie : match_movies) {
-                		cout << movie.first << ", " << movie.second << endl;
-            		}
-            
-            		//best movies per prefix
-            		bestMovies.push_back({prefix, {match_movies[0].first, match_movies[0].second}});
-		}
-	//	cout << endl;
-    	}
+                        for (const auto& movie : match_movies) {
+                                cout << movie.first << ", " << movie.second << endl;
+                        }
+
+                        //best movies per prefix
+                        bestMovies.push_back({prefix, {match_movies[0].first, match_movies[0].second}});
+                }
+        //      cout << endl;
+        }
 
     //print for best movies only
-    	for (const auto& entry : bestMovies) {
-        	cout << "Best movie with prefix " << entry.first << " is: " << entry.second.first << " with rating " << fixed << setprecision(1) << entry.second.second << endl;
-    	}
+        for (const auto& entry : bestMovies) {
+                cout << "Best movie with prefix " << entry.first << " is: " << entry.second.first << " with rating " << fixed << setprecision(1) << entry.second.second << endl;
+        }
 
 
 
@@ -147,8 +147,8 @@ bool parseLine(string &line, string &movieName, double &movieRating) {
 }
 
 bool compareMovies(const pair<string, double>& a, const pair<string, double>& b) {
-	if (a.second != b.second) {
-		return a.second > b.second;
-	}
-	return a.first < b.first;
+        if (a.second != b.second) {
+                return a.second > b.second;
+        }
+        return a.first < b.first;
 }
